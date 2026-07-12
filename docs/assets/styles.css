@@ -305,7 +305,7 @@ td { color: var(--muted); }
 
 /* ---- Watermark (diagonal company mark on every page) ---- */
 body::before {
-  content: "Embedded AI Design Labs Pvt Ltd  ·  SDV Architectures  ·  Confidential";
+  content: "Embedded AI Design Labs Pvt Ltd  ·  SDV Architectures  ·  © 2026  ·  muhammadsami@embedailabs.com";
   position: fixed;
   top: 45%;
   left: 50%;
@@ -313,7 +313,7 @@ body::before {
   font-size: clamp(1.1rem, 2.5vw, 1.8rem);
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: rgba(232, 238, 248, 0.045);
+  color: rgba(232, 238, 248, 0.055);
   white-space: nowrap;
   pointer-events: none;
   z-index: 0;
@@ -341,12 +341,37 @@ body::before {
 .author-card .copy { color: var(--muted); font-size: 0.8rem; margin-top: 0.5rem; }
 
 .footer .copy-line { display: block; margin-top: 0.35rem; color: var(--muted); }
+.footer-email {
+  display: block;
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 0.95rem;
+  margin-bottom: 0.35rem;
+  letter-spacing: 0.02em;
+}
 .watermark-tag {
   display: inline-block;
   margin-top: 0.5rem;
   font-size: 0.72rem;
   color: var(--accent);
   opacity: 0.85;
+}
+
+/* Stronger dual watermark layer */
+body::after {
+  content: "© 2026 Embedded AI Design Labs  ·  muhammadsami@embedailabs.com";
+  position: fixed;
+  bottom: 12%;
+  left: 50%;
+  transform: translateX(-50%) rotate(-28deg);
+  font-size: clamp(0.85rem, 1.8vw, 1.2rem);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(0, 194, 168, 0.06);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
 }
 
 /* ---- Diagram helpers ---- */

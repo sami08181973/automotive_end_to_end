@@ -5,7 +5,10 @@
 **Email:** muhammadsami@embedailabs.com  
 
 **Copyright © 2026 Embedded AI Design Labs Pvt Ltd. All rights reserved.**  
-**Watermark:** SDV End-to-End Architectures – Embedded AI Design Labs Pvt Ltd
+**Watermark:** SDV End-to-End Architectures – Embedded AI Design Labs Pvt Ltd  
+
+Public viewing of this repository is permitted. Redistribution or bulk republication
+without written permission is prohibited. See [COPYRIGHT.md](COPYRIGHT.md).
 
 ---
 
