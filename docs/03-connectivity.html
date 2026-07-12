@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Connectivity Architecture – SDV</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">SDV <span>Architectures</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="02-infotainment.html">Infotainment</a></li>
+        <li><a class="active" href="03-connectivity.html">Connectivity</a></li>
+        <li><a href="04-adas.html">ADAS</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1 class="page-title">Connectivity Architecture</h1>
+    <p class="page-sub">4G/5G cellular, V2X, OTA updates, telematics, and OEM cloud integration.</p>
+    <span class="tag">5G</span><span class="tag blue">V2X</span><span class="tag warn">OTA</span><span class="tag">Telematics</span>
+
+    <section class="section">
+      <h2>Building Blocks</h2>
+      <ul>
+        <li><strong>Cellular modem</strong> – LTE/5G NR registration, QoS, fallback</li>
+        <li><strong>V2X stack</strong> – CAM, DENM, BSM, SPaT/MAP</li>
+        <li><strong>OTA pipeline</strong> – check → download → verify → install</li>
+        <li><strong>Telematics</strong> – event queue to cloud over MQTT/TLS</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Flow</h2>
+      <div class="arch-diagram">Vehicle TCU ──5G──► OEM Cloud
+    │                  │
+   V2X               OTA Catalog
+    │                  │
+  RSU/Vehicles     Signed Packages → HSM Verify → Install</div>
+    </section>
+
+    <section class="section">
+      <h2>C++ Module</h2>
+      <div class="code-ref">modules/connectivity/connectivity.hpp|.cpp<br/>Class: sdv::connectivity::ConnectivityModule</div>
+      <p>Demo APIs: <code>connectCloud</code>, <code>startOTA</code>, <code>receiveV2X</code>, <code>sendTelematics</code>, <code>switchNetwork</code>.</p>
+    </section>
+
+    <div class="pager">
+      <a class="btn btn-ghost" href="02-infotainment.html">← Infotainment</a>
+      <a class="btn btn-primary" href="04-adas.html">ADAS →</a>
+    </div>
+  </main>
+    <footer class="footer">
+    Author: Muhammad Samiullah (Founder &amp; CTO) � Embedded AI Design Labs Pvt Ltd � muhammadsami@embedailabs.com<br/>
+    <span class="copy-line">Copyright &copy; 2026 Embedded AI Design Labs Pvt Ltd. All rights reserved.</span>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Muhammad Samiullah, Embedded AI Design Labs Pvt Ltd" />
+  <title>Behaviour Diagrams – SDV</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">SDV <span>Architectures</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="17-behaviour-diagrams.html">Behaviour</a></li>
+        <li><a href="18-enterprise-architecture.html">EA</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1 class="page-title">Behaviour Diagrams</h1>
+    <p class="page-sub">State machines and activity behaviour for module lifecycle, OTA, and autonomy modes.</p>
+
+    <section class="section">
+      <h2>Module Lifecycle State Machine</h2>
+      <div class="arch-diagram">        ┌──────────┐  initialize()  ┌──────────────┐  start()  ┌────────┐
+        │ OFFLINE  │───────────────►│ INITIALIZING │──────────►│ READY  │
+        └──────────┘                └──────────────┘           └───┬────┘
+             ▲                                                     │ start()
+             │ shutdown()                                    ┌─────▼─────┐
+             │                          stop()               │  ACTIVE   │◄── tick()
+             │◄──────────────────────────────────────────────┴─────┬─────┘
+             │                                                     │ fault
+             │                                               ┌─────▼─────┐
+             │                                               │ DEGRADED  │
+             │                                               └─────┬─────┘
+             │                                                     │ severe
+             │                                               ┌─────▼─────┐
+             └───────────────────────────────────────────────│   FAULT   │
+                                                             └───────────┘</div>
+      <p>Implemented via <code>ArchitectureModule::setStatus()</code> across all eleven domains.</p>
+    </section>
+
+    <section class="section">
+      <h2>OTA Behaviour States</h2>
+      <div class="flow-steps">
+        <span class="step">Idle</span><span class="arrow">→</span>
+        <span class="step">Downloading</span><span class="arrow">→</span>
+        <span class="step">Verifying</span><span class="arrow">→</span>
+        <span class="step">Installing</span><span class="arrow">→</span>
+        <span class="step">Complete</span>
+      </div>
+      <p>Failure path: any stage → <strong>Failed</strong> (signature invalid / cloud down).</p>
+    </section>
+
+    <section class="section">
+      <h2>Autonomy Mode Behaviour</h2>
+      <div class="arch-diagram">Manual ⇄ ACC ⇄ LKA ⇄ HighwayPilot ⇄ AutomatedParking ⇄ Autonomous
+         ^                                              |
+         +-------- driver takeover / fault -------------+</div>
+    </section>
+
+    <section class="section">
+      <h2>Keyless Entry Activity</h2>
+      <div class="flow-steps">
+        <span class="step">Fob in range</span><span class="arrow">→</span>
+        <span class="step">Passive unlock</span><span class="arrow">→</span>
+        <span class="step">Welcome lights</span><span class="arrow">→</span>
+        <span class="step">HVAC pre-condition</span>
+      </div>
+    </section>
+
+    <div class="pager">
+      <a class="btn btn-ghost" href="16-data-control-flow.html">← Data/Control</a>
+      <a class="btn btn-primary" href="18-enterprise-architecture.html">Enterprise Architecture →</a>
+    </div>
+  </main>
+  <footer class="footer">
+    Author: Muhammad Samiullah (Founder &amp; CTO) · Embedded AI Design Labs Pvt Ltd<br/>
+    <span class="copy-line">Copyright &copy; 2026 Embedded AI Design Labs Pvt Ltd. All rights reserved.</span>
+  </footer>
+</body>
+</html>

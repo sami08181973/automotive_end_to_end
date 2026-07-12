@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Conclusion – Biggest Impact on Next-Gen SDV</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">SDV <span>Architectures</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="08-ee-architecture.html">E/E</a></li>
+        <li><a class="active" href="13-conclusion.html">Conclusion</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1 class="page-title">What Will Shape the Next Generation of SDVs?</h1>
+    <p class="page-sub">The future of mobility is not a single technology—it is seamless integration across hardware, software, networking, safety, security, and cloud.</p>
+
+    <section class="section">
+      <h2>Thesis: E/E + Software Platform as the Multiplier</h2>
+      <p>
+        Among all architectures, the shift to <strong>zonal / centralized E/E</strong> combined with a
+        <strong>modern software platform</strong> (AUTOSAR Adaptive, SOA, CI/CD, OTA) will have the
+        largest systemic impact. It unlocks continuous feature delivery, consolidates AI compute,
+        reduces wiring cost/weight, and makes security and data pipelines practical at scale.
+      </p>
+      <div class="callout accent">
+        Biggest impact = E/E transformation (Zonal → Centralized HPC) × Software Architecture
+        (SOA + continuous delivery) — with Security and Functional safety as non-negotiable foundations.
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Why Not Only ADAS or Connectivity?</h2>
+      <ul>
+        <li><strong>ADAS</strong> delivers user-visible autonomy value, but depends on compute, networking, and safety architecture.</li>
+        <li><strong>Connectivity/OTA</strong> enables post-sale value, but needs secure E/E and software lifecycle to be trustworthy.</li>
+        <li><strong>E/E + Software</strong> is the substrate that multiplies every other domain’s effectiveness.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Collaboration Differentiator</h2>
+      <p>As the industry moves toward centralized computing, zonal architectures, AI-enabled vehicles, and continuous software delivery, cross-domain collaboration becomes the key OEM/supplier differentiator.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Domain</th><th>Role in Next-Gen SDV</th></tr></thead>
+          <tbody>
+            <tr><td>E/E</td><td>Structural enabler – zones + HPC</td></tr>
+            <tr><td>Software</td><td>Feature velocity – SOA + CI/CD + OTA</td></tr>
+            <tr><td>Security</td><td>Trust foundation – boot, gateway, 21434</td></tr>
+            <tr><td>Functional</td><td>Safety correctness – ASIL, goals, diagnostics</td></tr>
+            <tr><td>Vehicle Data</td><td>Learning loop – twin, analytics, governance</td></tr>
+            <tr><td>ADAS / PT / Chassis</td><td>Customer value &amp; physical control</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Run the Demo</h2>
+      <div class="code-ref">
+cd build<br/>
+cmake --build . --config Release<br/>
+.\Release\sdv_demo.exe
+      </div>
+      <p>Watch all 11 architectures initialize, interact (OTA + secure verify, ADAS decisions, data→twin), then shut down cleanly.</p>
+    </section>
+
+    <div class="pager">
+      <a class="btn btn-ghost" href="12-vehicle-data.html">← Vehicle Data</a>
+      <a class="btn btn-primary" href="index.html">Back to Home</a>
+    </div>
+  </main>
+  <footer class="footer">
+    Author: Muhammad Samiullah (Founder &amp; CTO) · Embedded AI Design Labs Pvt Ltd · muhammadsami@embedailabs.com<br/>
+    <span class="copy-line">Copyright &copy; 2026 Embedded AI Design Labs Pvt Ltd. All rights reserved.</span>
+    <span class="watermark-tag">Watermark: SDV End-to-End Architectures – Embedded AI Design Labs Pvt Ltd</span>
+  </footer>
+</body>
+</html>

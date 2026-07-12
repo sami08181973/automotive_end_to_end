@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Muhammad Samiullah, Embedded AI Design Labs Pvt Ltd" />
+  <title>HPC CUDA Realtime + Colab Guide | Embedded AI Design Labs</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">SDV <span>Architectures</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="22-cloud-hw-guide.html">Cloud/HW</a></li>
+        <li><a class="active" href="23-hpc-cuda-colab.html">HPC CUDA</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1 class="page-title">HPC Module – CUDA Realtime Use-Cases &amp; Colab</h1>
+    <p class="page-sub">Separate <code>modules/hpc</code> folder with latency-optimized CPU kernels and NVIDIA CUDA programs. Run locally without GPU; enable CUDA on Google Colab free T4.</p>
+    <div class="author-card">
+      <div class="role">Author</div>
+      <div class="name">Muhammad Samiullah (Founder &amp; CTO)</div>
+      <div class="company">Embedded AI Design Labs Pvt Ltd</div>
+      <div class="email"><a href="mailto:muhammadsami@embedailabs.com">muhammadsami@embedailabs.com</a></div>
+      <div class="copy">Copyright &copy; 2026 Embedded AI Design Labs Pvt Ltd. All rights reserved.</div>
+    </div>
+
+    <section class="section">
+      <h2>1. Module layout</h2>
+      <div class="code-ref">
+modules/hpc/<br/>
+&nbsp;&nbsp;hpc.hpp / hpc.cpp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Architecture module<br/>
+&nbsp;&nbsp;hpc_compute.hpp/.cpp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Suite orchestration<br/>
+&nbsp;&nbsp;hpc_kernels_cpu.cpp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Optimized CPU (tiling, unroll, fusion)<br/>
+&nbsp;&nbsp;cuda/hpc_kernels.cu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# NVIDIA CUDA kernels<br/>
+&nbsp;&nbsp;cuda/hpc_cuda_stub.cpp&nbsp;&nbsp;&nbsp;# Used when CUDA off<br/>
+usecases/hpc_usecases_runner.cpp&nbsp;&nbsp;# sdv_hpc binary
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>2. Realtime use-cases &amp; optimizations</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Use-case</th><th>SDV relevance</th><th>Optimization</th></tr></thead>
+          <tbody>
+            <tr><td>camera_preprocess</td><td>Vision pipeline</td><td>Fused scale+bias, 4-wide unroll; CUDA grid-stride</td></tr>
+            <tr><td>conv2d_3x3</td><td>Feature extract</td><td>Padded hot path; CUDA 16×16 blocks</td></tr>
+            <tr><td>gemm_128</td><td>NN / fusion layer</td><td>32×32 cache blocking; CUDA shared-mem TILE GEMM</td></tr>
+            <tr><td>reduce_max_1M</td><td>NMS / confidence</td><td>Unrolled reduce; CUDA shared-mem reduction</td></tr>
+            <tr><td>fir_radar</td><td>Radar DSP</td><td>Tap unroll; CUDA per-sample FIR</td></tr>
+            <tr><td>softmax_batch</td><td>Classifier head</td><td>Stable softmax; CUDA one-block-per-row</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Each use-case reports <strong>naive vs optimized</strong> latency (ms), speedup×, and MOPS. When CUDA is built, a third <code>cuda</code> row is added.</p>
+    </section>
+
+    <section class="section">
+      <h2>3. Run locally (no NVIDIA GPU required)</h2>
+      <div class="code-ref">
+cd e:\Sami\automotive_end_to_end<br/>
+mkdir build -Force; cd build<br/>
+cmake .. -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=g++<br/>
+cmake --build . -j 8<br/>
+.\sdv_hpc.exe<br/>
+.\sdv_demo.exe<br/>
+.\sdv_usecases.exe
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>4. How to run on Google Colab (free NVIDIA T4) – step by step</h2>
+      <ol>
+        <li>Open <a href="https://colab.research.google.com" target="_blank" rel="noopener">Google Colab</a>.</li>
+        <li><strong>Runtime → Change runtime type → T4 GPU</strong> (free).</li>
+        <li>Upload project zip to <code>/content/sdv</code> <em>or</em> clone your repo.</li>
+        <li>Upload notebook <code>cloud/colab/sdv_hpc_cuda.ipynb</code> and <strong>Run all</strong>.</li>
+        <li>Key cells (manual equivalent):
+          <div class="code-ref">
+!nvidia-smi<br/>
+!apt-get update -qq &amp;&amp; apt-get install -y -qq build-essential cmake g++ nvidia-cuda-toolkit<br/>
+%cd /content/sdv<br/>
+!cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DSDV_ENABLE_CUDA=ON<br/>
+!cmake --build build -j$(nproc)<br/>
+!./build/sdv_hpc<br/>
+!./build/sdv_demo<br/>
+!./build/sdv_usecases
+          </div>
+        </li>
+        <li>Confirm logs show <code>CUDA HPC kernels ENABLED</code> and rows with variant <code>cuda</code>.</li>
+      </ol>
+      <div class="callout accent">If <code>nvcc</code> is missing on Colab, install <code>nvidia-cuda-toolkit</code> or use the notebook cell that installs it. CPU-optimized path still runs if CUDA configure fails.</div>
+    </section>
+
+    <section class="section">
+      <h2>5. Enable CUDA on a local NVIDIA machine</h2>
+      <ol>
+        <li>Install <a href="https://developer.nvidia.com/cuda-downloads" target="_blank" rel="noopener">CUDA Toolkit</a> so <code>nvcc</code> is on PATH.</li>
+        <li>
+          <div class="code-ref">
+cmake -S . -B build -DSDV_ENABLE_CUDA=ON -DCMAKE_BUILD_TYPE=Release<br/>
+cmake --build build -j 8<br/>
+./build/sdv_hpc
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2>6. Latency reduction checklist</h2>
+      <ul>
+        <li>Prefer <strong>optimized</strong> / <strong>cuda</strong> variants over naive for production paths.</li>
+        <li>Batch camera frames; keep GEMM sizes tile-aligned (16/32).</li>
+        <li>Use CUDA for large reductions / GEMM; keep hard-realtime control on CPU/ARM.</li>
+        <li>Measure with <code>sdv_hpc</code> before/after kernel changes.</li>
+      </ul>
+    </section>
+
+    <div class="pager">
+      <a class="btn btn-ghost" href="22-cloud-hw-guide.html">← Cloud Guide</a>
+      <a class="btn btn-primary" href="index.html">Home</a>
+    </div>
+  </main>
+  <footer class="footer">
+    Author: Muhammad Samiullah (Founder &amp; CTO) · Embedded AI Design Labs Pvt Ltd · muhammadsami@embedailabs.com<br/>
+    <span class="copy-line">Copyright &copy; 2026 Embedded AI Design Labs Pvt Ltd. All rights reserved.</span>
+  </footer>
+</body>
+</html>

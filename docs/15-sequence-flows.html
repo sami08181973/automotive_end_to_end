@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Muhammad Samiullah, Embedded AI Design Labs Pvt Ltd" />
+  <title>Sequence Flow Diagrams – SDV</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">SDV <span>Architectures</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="14-system-architecture.html">Sys Arch</a></li>
+        <li><a class="active" href="15-sequence-flows.html">Sequence</a></li>
+        <li><a href="16-data-control-flow.html">Data/Ctrl</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1 class="page-title">Sequential / Sequence Flow Diagrams</h1>
+    <p class="page-sub">Time-ordered interactions across security, connectivity, ADAS, and data domains (UML sequence style).</p>
+
+    <section class="section">
+      <h2>1. Vehicle Start – Secure Boot Sequence</h2>
+      <div class="arch-diagram">Actor/Driver          Security           Software           Domains
+    │                    │                   │                  │
+    │  Ignition ON       │                   │                  │
+    │───────────────────►│                   │                  │
+    │                    │ runSecureBoot()   │                  │
+    │                    │──ROM→BL→Kernel───►│                  │
+    │                    │  signature OK     │                  │
+    │                    │──────────────────►│ start apps       │
+    │                    │                   │─────────────────►│ start()
+    │                    │                   │                  │ ACTIVE
+    │◄───────────────────┴───────────────────┴──────────────────│ Ready</div>
+    </section>
+
+    <section class="section">
+      <h2>2. OTA Update Sequence (Connectivity + Security)</h2>
+      <div class="flow-steps">
+        <span class="step">Cloud Catalog</span><span class="arrow">→</span>
+        <span class="step">TCU Download</span><span class="arrow">→</span>
+        <span class="step">HSM Verify Sig</span><span class="arrow">→</span>
+        <span class="step">Install Package</span><span class="arrow">→</span>
+        <span class="step">Health Check</span><span class="arrow">→</span>
+        <span class="step">Telematics ACK</span>
+      </div>
+      <div class="arch-diagram">Cloud          Connectivity       Security           Software
+  │                 │                 │                  │
+  │  OTA package    │                 │                  │
+  │────────────────►│ startOTA()      │                  │
+  │                 │ download…       │                  │
+  │                 │────────────────►│ verifyOTAPackage │
+  │                 │                 │ sig OK           │
+  │                 │◄────────────────│                  │
+  │                 │ install ──────────────────────────►│ deployApp()
+  │◄──── ACK ───────│                 │                  │</div>
+    </section>
+
+    <section class="section">
+      <h2>3. ADAS AEB Decision Sequence</h2>
+      <div class="arch-diagram">Sensors      ADAS Perception    Fusion      Decision     Chassis
+   │               │               │           │            │
+   │ frame/radar   │               │           │            │
+   │──────────────►│ detect()      │           │            │
+   │               │──────────────►│ fuse()    │            │
+   │               │               │──────────►│ decide()   │
+   │               │               │           │ TTC&lt;1.5s   │
+   │               │               │           │───────────►│ setBrakePedal
+   │               │               │           │            │ ABS ready</div>
+    </section>
+
+    <section class="section">
+      <h2>4. Demo Main() Orchestration Sequence</h2>
+      <p>Matches <code>src/main.cpp</code> phases 1–7:</p>
+      <div class="flow-steps">
+        <span class="step">Init×11</span><span class="arrow">→</span>
+        <span class="step">SecureBoot</span><span class="arrow">→</span>
+        <span class="step">Start Domains</span><span class="arrow">→</span>
+        <span class="step">Scenario</span><span class="arrow">→</span>
+        <span class="step">Tick Loop</span><span class="arrow">→</span>
+        <span class="step">Twin/Analytics</span><span class="arrow">→</span>
+        <span class="step">Shutdown</span>
+      </div>
+    </section>
+
+    <div class="pager">
+      <a class="btn btn-ghost" href="14-system-architecture.html">← System Arch</a>
+      <a class="btn btn-primary" href="16-data-control-flow.html">Data &amp; Control Flow →</a>
+    </div>
+  </main>
+  <footer class="footer">
+    Author: Muhammad Samiullah (Founder &amp; CTO) · Embedded AI Design Labs Pvt Ltd<br/>
+    <span class="copy-line">Copyright &copy; 2026 Embedded AI Design Labs Pvt Ltd. All rights reserved.</span>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Muhammad Samiullah, Embedded AI Design Labs Pvt Ltd" />
+  <title>ASIL & ASPICE – Functional Safety</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">SDV <span>Architectures</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="19-doors-requirements.html">DOORS</a></li>
+        <li><a class="active" href="20-safety-aspice.html">ASIL/ASPICE</a></li>
+        <li><a href="21-platform-tech.html">Platform</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1 class="page-title">Functional Safety – ASIL &amp; Automotive SPICE</h1>
+    <p class="page-sub">ISO 26262 ASIL allocation, ASPICE process capability, and how the demo maps safety mechanisms.</p>
+
+    <section class="section">
+      <h2>ISO 26262 ASIL Levels</h2>
+      <div class="callout accent">
+        ISO 26262 defines <strong>ASIL QM, A, B, C, D</strong>. There is <strong>no ASIL-E</strong> in the standard.
+        (If a stakeholder asks for “ASIL A–E”, treat E as out-of-scope / map to ASIL-D + additional OEM criteria.)
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ASIL</th><th>Integrity</th><th>Typical SDV Examples in this Project</th></tr></thead>
+          <tbody>
+            <tr><td class="asil-qm">QM</td><td>Quality Managed</td><td>Infotainment media apps, some analytics UX</td></tr>
+            <tr><td class="asil-a">A</td><td>Lowest automotive ASIL</td><td>Body comfort HVAC assist, data governance helpers</td></tr>
+            <tr><td class="asil-b">B</td><td>Moderate</td><td>IVI display integrity, connectivity OTA path, SOME/IP services</td></tr>
+            <tr><td class="asil-c">C</td><td>High</td><td>Powertrain BMS envelope, health deadline supervision</td></tr>
+            <tr><td class="asil-d">D</td><td>Highest</td><td>ADAS AEB, Chassis ABS/ESC/SRS, Secure boot, E/E HPC safety island</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Automotive SPICE (ASPICE) Process Focus</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Process</th><th>Name</th><th>Evidence in this SDV pack</th></tr></thead>
+          <tbody>
+            <tr><td>SYS.2 / SYS.3</td><td>System Req / Architecture</td><td>EA page, system architecture SVG, module map</td></tr>
+            <tr><td>SWE.1</td><td>Software Requirements</td><td>DOORS REQ-* / NFR-* tables</td></tr>
+            <tr><td>SWE.2</td><td>Software Architecture</td><td><code>modules/*</code> + software platform docs</td></tr>
+            <tr><td>SWE.3</td><td>Software Detailed Design</td><td>Header/API designs, state machines</td></tr>
+            <tr><td>SWE.4</td><td>Software Unit Verification</td><td>Runnable demo scenarios + CRC/health checks</td></tr>
+            <tr><td>SWE.5</td><td>Software Integration Test</td><td><code>main.cpp</code> cross-domain phases</td></tr>
+            <tr><td>SWE.6</td><td>Software Qualification Test</td><td>Console snapshot pass criteria</td></tr>
+            <tr><td>SUP.1 / SUP.8</td><td>QA / Config Mgmt</td><td>CMake project, versioned docs, copyright</td></tr>
+            <tr><td>SUP.9</td><td>Problem Resolution</td><td>DTC raise/clear in Functional module</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Capability levels (0–5) are organizational; this pack provides <em>work-product style</em> artifacts suitable for Level 1–2 coaching demos.</p>
+    </section>
+
+    <section class="section">
+      <h2>Safety Mechanisms Demonstrated in Code</h2>
+      <ul>
+        <li><strong>Secure boot chain</strong> – Security module (trust root before start)</li>
+        <li><strong>Gateway ACL</strong> – Deny external→CAN</li>
+        <li><strong>Health monitoring</strong> – deadline supervision on QNX / Hypervisor / Adaptive entities</li>
+        <li><strong>CRC-16</strong> – payload integrity for CAN/SOME/IP style buffers</li>
+        <li><strong>Degraded modes</strong> – DTC-driven feature degradation</li>
+        <li><strong>FFI concept</strong> – IVI guest VM vs ADAS QNX safety partition labels</li>
+      </ul>
+    </section>
+
+    <div class="pager">
+      <a class="btn btn-ghost" href="19-doors-requirements.html">← DOORS</a>
+      <a class="btn btn-primary" href="21-platform-tech.html">Platform Tech →</a>
+    </div>
+  </main>
+  <footer class="footer">
+    Author: Muhammad Samiullah (Founder &amp; CTO) · Embedded AI Design Labs Pvt Ltd<br/>
+    <span class="copy-line">Copyright &copy; 2026 Embedded AI Design Labs Pvt Ltd. All rights reserved.</span>
+  </footer>
+</body>
+</html>

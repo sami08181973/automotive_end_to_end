@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chassis & Safety – SDV</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">SDV <span>Architectures</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="07-chassis-safety.html">Chassis</a></li>
+        <li><a href="08-ee-architecture.html">E/E</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1 class="page-title">Chassis &amp; Safety Architecture</h1>
+    <p class="page-sub">ABS, ESC, TPMS, airbags (SRS), electric power steering, and blended braking.</p>
+    <span class="tag warn">ASIL-D</span><span class="tag">ABS/ESC</span><span class="tag blue">TPMS</span><span class="tag">SRS</span>
+
+    <section class="section">
+      <h2>Safety Actuation</h2>
+      <ul>
+        <li>ABS pressure modulation on wheel lock</li>
+        <li>ESC yaw correction via selective braking</li>
+        <li>TPMS low-pressure detection</li>
+        <li>SRS deployment on crash detection</li>
+        <li>EPS assist / lane-keep steering modes</li>
+      </ul>
+      <div class="arch-diagram">Pedal/Steer → Brake/EPS Controllers → Wheels
+                     ↓
+              ABS / ESC Monitors
+                     ↓
+              SRS Crash Logic</div>
+    </section>
+
+    <section class="section">
+      <h2>C++ Module</h2>
+      <div class="code-ref">modules/chassis_safety/chassis_safety.hpp|.cpp<br/>Class: sdv::chassis::ChassisSafetyModule</div>
+    </section>
+
+    <div class="pager">
+      <a class="btn btn-ghost" href="06-powertrain.html">← Powertrain</a>
+      <a class="btn btn-primary" href="08-ee-architecture.html">E/E Architecture →</a>
+    </div>
+  </main>
+    <footer class="footer">
+    Author: Muhammad Samiullah (Founder &amp; CTO) � Embedded AI Design Labs Pvt Ltd � muhammadsami@embedailabs.com<br/>
+    <span class="copy-line">Copyright &copy; 2026 Embedded AI Design Labs Pvt Ltd. All rights reserved.</span>
+  </footer>
+</body>
+</html>

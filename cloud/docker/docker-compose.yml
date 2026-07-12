@@ -1,0 +1,21 @@
+# Local multi-demo orchestration (Virtual ECU + full SDV stack)
+services:
+  sdv-demo:
+    build:
+      context: ../..
+      dockerfile: cloud/docker/Dockerfile
+    image: embedailabs/sdv-virtual-ecu:latest
+    container_name: sdv_demo
+    environment:
+      - SDV_CLOUD_PROVIDER=LocalDocker
+    command: ["sdv_demo"]
+
+  sdv-usecases:
+    image: embedailabs/sdv-virtual-ecu:latest
+    container_name: sdv_usecases
+    depends_on:
+      - sdv-demo
+    environment:
+      - SDV_CLOUD_PROVIDER=LocalDocker
+    command: ["sdv_usecases"]
+    profiles: ["usecases"]

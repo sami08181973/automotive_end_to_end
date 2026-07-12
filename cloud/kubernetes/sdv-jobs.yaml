@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sdv-virtual-ecu
+  labels:
+    app.kubernetes.io/part-of: automotive-sdv
+    owner: embedailabs
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sdv-config
+  namespace: sdv-virtual-ecu
+data:
+  SDV_CLOUD_PROVIDER: "Kubernetes"
+  AUTHOR: "Muhammad Samiullah"
+  COMPANY: "Embedded AI Design Labs Pvt Ltd"
+---
+# Full vehicle architecture demo Job
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: sdv-demo-job
+  namespace: sdv-virtual-ecu
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      labels:
+        app: sdv-demo
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: sdv-demo
+          image: embedailabs/sdv-virtual-ecu:latest
+          imagePullPolicy: IfNotPresent
+          command: ["sdv_demo"]
+          envFrom:
+            - configMapRef:
+                name: sdv-config
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "2"
+              memory: "2Gi"
+---
+# Virtual ECU GPU/DSP/ARM use-case Job (CPU emulation unless GPU node pool)
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: sdv-usecases-job
+  namespace: sdv-virtual-ecu
+spec:
+  backoffLimit: 1
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: sdv-usecases
+          image: embedailabs/sdv-virtual-ecu:latest
+          imagePullPolicy: IfNotPresent
+          command: ["sdv_usecases"]
+          env:
+            - name: SDV_CLOUD_PROVIDER
+              value: "Kubernetes"
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "2"
+              memory: "2Gi"
+              # Uncomment on GPU node pools / GKE Autopilot GPU:
+              # nvidia.com/gpu: "1"

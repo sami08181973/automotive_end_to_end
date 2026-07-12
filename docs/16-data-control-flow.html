@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Muhammad Samiullah, Embedded AI Design Labs Pvt Ltd" />
+  <title>Data Flow & Control Flow – SDV</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">SDV <span>Architectures</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="16-data-control-flow.html">Data/Ctrl</a></li>
+        <li><a href="17-behaviour-diagrams.html">Behaviour</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1 class="page-title">Data Flow &amp; Control Flow Diagrams</h1>
+    <p class="page-sub">DFD-style data movement and CFD-style control/decision paths across the SDV stack.</p>
+
+    <section class="section">
+      <h2>Data Flow Diagram (Level 1)</h2>
+      <div class="diagram-svg">
+        <svg viewBox="0 0 960 480" xmlns="http://www.w3.org/2000/svg">
+          <rect width="960" height="480" fill="#121a2b"/>
+          <ellipse cx="80" cy="240" rx="55" ry="35" fill="#162033" stroke="#00c2a8"/>
+          <text x="80" y="245" text-anchor="middle" fill="#e8eef8" font-size="12">Sensors</text>
+          <rect x="180" y="200" width="120" height="80" rx="8" fill="#162033" stroke="#3d8bfd"/>
+          <text x="240" y="235" text-anchor="middle" fill="#e8eef8" font-size="12">ADAS</text>
+          <text x="240" y="255" text-anchor="middle" fill="#93a0b8" font-size="11">Fusion</text>
+          <rect x="360" y="200" width="120" height="80" rx="8" fill="#162033" stroke="#3d8bfd"/>
+          <text x="420" y="245" text-anchor="middle" fill="#e8eef8" font-size="12">Domains</text>
+          <rect x="540" y="200" width="120" height="80" rx="8" fill="#162033" stroke="#f0a500"/>
+          <text x="600" y="235" text-anchor="middle" fill="#e8eef8" font-size="12">Edge</text>
+          <text x="600" y="255" text-anchor="middle" fill="#93a0b8" font-size="11">Buffer+CRC</text>
+          <rect x="720" y="120" width="140" height="70" rx="8" fill="#162033" stroke="#00c2a8"/>
+          <text x="790" y="160" text-anchor="middle" fill="#e8eef8" font-size="12">Cloud Twin</text>
+          <rect x="720" y="290" width="140" height="70" rx="8" fill="#162033" stroke="#3dd68c"/>
+          <text x="790" y="330" text-anchor="middle" fill="#e8eef8" font-size="12">Analytics</text>
+          <line x1="135" y1="240" x2="180" y2="240" stroke="#00c2a8" stroke-width="2" marker-end="url(#a)"/>
+          <line x1="300" y1="240" x2="360" y2="240" stroke="#00c2a8" stroke-width="2"/>
+          <line x1="480" y1="240" x2="540" y2="240" stroke="#00c2a8" stroke-width="2"/>
+          <line x1="660" y1="220" x2="720" y2="160" stroke="#00c2a8" stroke-width="2"/>
+          <line x1="660" y1="260" x2="720" y2="320" stroke="#00c2a8" stroke-width="2"/>
+          <text x="240" y="190" text-anchor="middle" fill="#93a0b8" font-size="10">object list</text>
+          <text x="420" y="190" text-anchor="middle" fill="#93a0b8" font-size="10">signals</text>
+          <text x="600" y="190" text-anchor="middle" fill="#93a0b8" font-size="10">exportSignals()</text>
+        </svg>
+      </div>
+      <ul>
+        <li>Each module exports <code>SignalMap</code> telemetry.</li>
+        <li><code>VehicleDataModule</code> filters, encrypts uplink, syncs digital twin.</li>
+        <li>CRC-16 protects CAN/SOME/IP style payloads (see Platform page).</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Control Flow Diagram – ADAS Decision</h2>
+      <div class="arch-diagram">[Start tick]
+     │
+     ▼
+[Perception: sensors online?]──no──►[Degraded mode]
+     │ yes
+     ▼
+[Fusion: build object list / free-space]
+     │
+     ▼
+[Lead vehicle x &lt; 15m?]──yes──►[Brake request / cut speed]
+     │ no
+     ▼
+[VRU in path?]──yes──►[Emergency stop]
+     │ no
+     ▼
+[Cruise / ACC target speed]
+     │
+     ▼
+[Export adas.* signals]──►[End tick]</div>
+    </section>
+
+    <section class="section">
+      <h2>Control Flow – Gateway Firewall</h2>
+      <div class="flow-steps">
+        <span class="step">RX msg</span><span class="arrow">→</span>
+        <span class="step">Match rule</span><span class="arrow">→</span>
+        <span class="step">Allow / Deny / Log / Quarantine</span><span class="arrow">→</span>
+        <span class="step">Threat event?</span>
+      </div>
+    </section>
+
+    <div class="pager">
+      <a class="btn btn-ghost" href="15-sequence-flows.html">← Sequence</a>
+      <a class="btn btn-primary" href="17-behaviour-diagrams.html">Behaviour Diagrams →</a>
+    </div>
+  </main>
+  <footer class="footer">
+    Author: Muhammad Samiullah (Founder &amp; CTO) · Embedded AI Design Labs Pvt Ltd<br/>
+    <span class="copy-line">Copyright &copy; 2026 Embedded AI Design Labs Pvt Ltd. All rights reserved.</span>
+  </footer>
+</body>
+</html>

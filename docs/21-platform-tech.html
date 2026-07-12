@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Muhammad Samiullah, Embedded AI Design Labs Pvt Ltd" />
+  <title>Platform Technology – Hypervisor, QNX, CAN, SOME/IP</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">SDV <span>Architectures</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="20-safety-aspice.html">ASIL/ASPICE</a></li>
+        <li><a class="active" href="21-platform-tech.html">Platform</a></li>
+        <li><a href="13-conclusion.html">Conclusion</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1 class="page-title">Platform Technology Diagram</h1>
+    <p class="page-sub">Health monitoring, CRC checks, CAN, SOME/IP, Adaptive AUTOSAR, hypervisor, and QNX in the SDV compute stack.</p>
+    <span class="tag">Adaptive AUTOSAR</span><span class="tag blue">SOME/IP</span><span class="tag">CAN</span><span class="tag warn">QNX</span><span class="tag ok">Hypervisor</span>
+
+    <section class="section">
+      <h2>Runtime Partitioning</h2>
+      <div class="arch-diagram">┌──────────────────────── Vehicle HPC / SoC ────────────────────────┐
+│  Type-1 Hypervisor                                                 │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐              │
+│  │ VM: IVI/AAOS │  │ VM: Adaptive │  │ Safe: QNX    │              │
+│  │  (QM/ASIL-B) │  │  AUTOSAR HPC │  │  ADAS ASIL-D │              │
+│  │  SOME/IP     │  │  DDS/SOMEIP  │  │  Health Mon  │              │
+│  └──────────────┘  └──────────────┘  └──────────────┘              │
+│         │                 │                  │                     │
+│         └──────────── Ethernet / IPC ────────┘                     │
+└───────────────────────────────┬────────────────────────────────────┘
+                                │
+              ┌─────────────────┼─────────────────┐
+              ▼                 ▼                 ▼
+         Zone Ctrl         CAN Gateway        Classic ECU
+         (Eth+CAN)         CRC-16 E2E         Body / PT</div>
+    </section>
+
+    <section class="section">
+      <h2>Health Monitoring Flow</h2>
+      <div class="flow-steps">
+        <span class="step">Register entity</span><span class="arrow">→</span>
+        <span class="step">Heartbeat</span><span class="arrow">→</span>
+        <span class="step">Deadline check</span><span class="arrow">→</span>
+        <span class="step">Healthy / Failed</span>
+      </div>
+      <div class="code-ref">
+include/sdv/health_monitor.hpp<br/>
+Entities in main.cpp: SecureGateway (Adaptive), ADAS_Partition (QNX), IVI_GuestVM (Hypervisor), BodyCAN_Gateway (Classic), CloudAgent (Linux)
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>CRC-16 Integrity (CAN / SOME/IP)</h2>
+      <ul>
+        <li>Algorithm: CRC-16/CCITT-FALSE (poly 0x1021, init 0xFFFF)</li>
+        <li>Applied to synthetic SOME/IP payload <code>SOMEIP:VehicleSpeed:…</code> in <code>main.cpp</code></li>
+        <li>Supports integrity concepts used with CAN frames and Adaptive service payloads</li>
+      </ul>
+      <div class="arch-diagram">Producer App → SOME/IP serialize → CRC-16 append → Eth/CAN TX
+Consumer App ← SOME/IP parse    ← CRC verify    ← RX
+                    │
+              mismatch → Degraded + log</div>
+    </section>
+
+    <section class="section">
+      <h2>Middleware &amp; OS Coverage</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Technology</th><th>Role</th><th>Where referenced</th></tr></thead>
+          <tbody>
+            <tr><td>Adaptive AUTOSAR</td><td>Dynamic apps, EM health</td><td>Software module + HealthMonitor</td></tr>
+            <tr><td>Classic AUTOSAR</td><td>Hard real-time ECUs</td><td>BodyCAN_Gateway, Classic apps</td></tr>
+            <tr><td>SOME/IP</td><td>SOA services</td><td>SoftwarePlatform registerService</td></tr>
+            <tr><td>DDS / MQTT</td><td>Perception / cloud</td><td>Software + Connectivity</td></tr>
+            <tr><td>CAN / CAN-FD</td><td>Zone/legacy bus</td><td>E/E + CRC demo</td></tr>
+            <tr><td>QNX</td><td>Safety OS partition</td><td>ADAS_Partition health entity</td></tr>
+            <tr><td>Hypervisor</td><td>FFI between IVI &amp; safety</td><td>IVI_GuestVM entity</td></tr>
+            <tr><td>Android Automotive</td><td>IVI app OS</td><td>SoftwarePlatform InfotainmentUI</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="pager">
+      <a class="btn btn-ghost" href="20-safety-aspice.html">← ASIL/ASPICE</a>
+      <a class="btn btn-primary" href="13-conclusion.html">Conclusion →</a>
+    </div>
+  </main>
+  <footer class="footer">
+    Author: Muhammad Samiullah (Founder &amp; CTO) · Embedded AI Design Labs Pvt Ltd · muhammadsami@embedailabs.com<br/>
+    <span class="copy-line">Copyright &copy; 2026 Embedded AI Design Labs Pvt Ltd. All rights reserved.</span>
+    <span class="watermark-tag">Watermark: SDV End-to-End Architectures – Embedded AI Design Labs Pvt Ltd</span>
+  </footer>
+</body>
+</html>

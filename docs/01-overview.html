@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Overview – SDV Architectures</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">SDV <span>Architectures</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="01-overview.html">Overview</a></li>
+        <li><a href="02-infotainment.html">Infotainment</a></li>
+        <li><a href="03-connectivity.html">Connectivity</a></li>
+        <li><a href="04-adas.html">ADAS</a></li>
+        <li><a href="08-ee-architecture.html">E/E</a></li>
+        <li><a href="13-conclusion.html">Conclusion</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1 class="page-title">End-to-End Overview</h1>
+    <p class="page-sub">As vehicles evolve into highly connected, software-defined platforms, understanding the complete automotive architecture landscape becomes essential.</p>
+
+    <section class="section">
+      <h2>Why an End-to-End View?</h2>
+      <p>Modern vehicles are no longer collections of isolated ECUs. They are layered systems where cockpit UX, safety-critical control, connectivity, and cloud analytics must cooperate under strict safety and security constraints.</p>
+      <div class="arch-diagram">┌─────────────────────────────────────────────────────────────┐
+│                     CLOUD / DIGITAL TWIN                      │
+├─────────────────────────────────────────────────────────────┤
+│  Connectivity (5G/V2X/OTA)     │  Vehicle Data Pipeline       │
+├─────────────────────────────────────────────────────────────┤
+│              SOFTWARE PLATFORM (AUTOSAR / SOA / OS)           │
+├──────────┬──────────┬──────────┬──────────┬─────────────────┤
+│ Infotain │   ADAS   │  Body    │Powertrain│ Chassis/Safety  │
+├──────────┴──────────┴──────────┴──────────┴─────────────────┤
+│           E/E (Zonal / Central HPC)  +  Security Gateway      │
+├─────────────────────────────────────────────────────────────┤
+│              FUNCTIONAL (Reqs / ASIL / Diagnostics)           │
+└─────────────────────────────────────────────────────────────┘</div>
+    </section>
+
+    <section class="section" id="code">
+      <h2>Runnable C++ Project</h2>
+      <p>This repository ships a module-wise C++17 demo. Each architecture is a folder under <code>modules/</code> with its own header and implementation.</p>
+      <div class="code-ref">
+mkdir build &amp;&amp; cd build<br/>
+cmake .. -DCMAKE_BUILD_TYPE=Release<br/>
+cmake --build . --config Release<br/>
+.\Release\sdv_demo.exe   &nbsp;&nbsp;# Windows<br/>
+./sdv_demo               &nbsp;&nbsp;# Linux/macOS
+      </div>
+      <span class="tag">C++17</span>
+      <span class="tag blue">CMake</span>
+      <span class="tag ok">11 Modules</span>
+      <span class="tag warn">ASIL-aware</span>
+    </section>
+
+    <section class="section">
+      <h2>Module Map</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Folder</th><th>Architecture</th><th>ASIL (demo)</th></tr></thead>
+          <tbody>
+            <tr><td><code>modules/infotainment</code></td><td>Infotainment / Digital Cockpit</td><td>ASIL-B</td></tr>
+            <tr><td><code>modules/connectivity</code></td><td>Connectivity / OTA / V2X</td><td>ASIL-B</td></tr>
+            <tr><td><code>modules/adas</code></td><td>ADAS &amp; Autonomous</td><td>ASIL-D</td></tr>
+            <tr><td><code>modules/body_comfort</code></td><td>Body &amp; Comfort</td><td>ASIL-A</td></tr>
+            <tr><td><code>modules/powertrain</code></td><td>Powertrain / BMS</td><td>ASIL-C</td></tr>
+            <tr><td><code>modules/chassis_safety</code></td><td>Chassis &amp; Safety</td><td>ASIL-D</td></tr>
+            <tr><td><code>modules/ee_architecture</code></td><td>E/E Paradigms</td><td>ASIL-D</td></tr>
+            <tr><td><code>modules/security</code></td><td>Cybersecurity</td><td>ASIL-D</td></tr>
+            <tr><td><code>modules/functional</code></td><td>Functional / Safety</td><td>ASIL-D</td></tr>
+            <tr><td><code>modules/software_platform</code></td><td>Software / AUTOSAR</td><td>ASIL-B</td></tr>
+            <tr><td><code>modules/vehicle_data</code></td><td>Vehicle Data / Twin</td><td>ASIL-A</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="pager">
+      <a class="btn btn-ghost" href="index.html">← Home</a>
+      <a class="btn btn-primary" href="02-infotainment.html">Infotainment →</a>
+    </div>
+  </main>
+  <footer class="footer">
+    Author: Muhammad Samiullah (Founder &amp; CTO) · Embedded AI Design Labs Pvt Ltd · muhammadsami@embedailabs.com<br/>
+    <span class="copy-line">Copyright &copy; 2026 Embedded AI Design Labs Pvt Ltd. All rights reserved.</span>
+  </footer>
+</body>
+</html>

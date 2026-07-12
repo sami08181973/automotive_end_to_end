@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Muhammad Samiullah, Embedded AI Design Labs Pvt Ltd" />
+  <title>Enterprise Architecture View – SDV</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">SDV <span>Architectures</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="18-enterprise-architecture.html">EA</a></li>
+        <li><a href="19-doors-requirements.html">DOORS</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1 class="page-title">Enterprise Architecture Document View</h1>
+    <p class="page-sub">Layered EA-tool style artifact (Business → Application → Data → Technology → Security) for the SDV program.</p>
+    <span class="tag">TOGAF-style</span><span class="tag blue">ArchiMate-like</span><span class="tag">EA Repository</span>
+
+    <section class="section">
+      <h2>EA Layer Stack</h2>
+      <div class="ea-layer">
+        <h3>L5 – Business / Capability</h3>
+        <p>Safe mobility, comfort UX, continuous feature delivery, fleet learning, regulatory compliance (ISO 26262, ISO/SAE 21434, ASPICE).</p>
+      </div>
+      <div class="ea-layer">
+        <h3>L4 – Application / Function Domains</h3>
+        <p>Infotainment, Connectivity, ADAS, Body, Powertrain, Chassis, Functional features (ACC/AEB/OTA…), Digital Twin apps.</p>
+      </div>
+      <div class="ea-layer">
+        <h3>L3 – Data Architecture</h3>
+        <p>Signal dictionary, edge buffers, encrypted uplink, analytics marts, twin fidelity metrics, GDPR anonymization policies.</p>
+      </div>
+      <div class="ea-layer">
+        <h3>L2 – Software &amp; Integration</h3>
+        <p>AUTOSAR Classic/Adaptive, SOME/IP, DDS, MQTT, ARA::COM, CI/CD release trains, OTA lifecycle.</p>
+      </div>
+      <div class="ea-layer">
+        <h3>L1 – Technology / E/E</h3>
+        <p>Zonal controllers, Vehicle HPC, Automotive Ethernet, CAN/CAN-FD/LIN, hypervisor, QNX safety OS, HSM.</p>
+      </div>
+      <div class="ea-layer">
+        <h3>L0 – Security &amp; Safety Cross-Cut</h3>
+        <p>Secure boot, gateway firewall, ASIL allocation, health monitoring, CRC/E2E protection, ISO 21434 controls.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Capability Map (EA Matrix)</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Capability</th><th>Owning Architecture</th><th>Primary Interface</th><th>ASIL*</th></tr></thead>
+          <tbody>
+            <tr><td>Driver HMI</td><td>Infotainment</td><td>SOME/IP</td><td class="asil-b">B</td></tr>
+            <tr><td>Remote Update</td><td>Connectivity + Security</td><td>MQTT/TLS + HSM</td><td class="asil-b">B</td></tr>
+            <tr><td>Automated Driving Assist</td><td>ADAS</td><td>DDS / Adaptive</td><td class="asil-d">D</td></tr>
+            <tr><td>Cabin Comfort</td><td>Body</td><td>CAN / Classic</td><td class="asil-a">A</td></tr>
+            <tr><td>Energy Propulsion</td><td>Powertrain</td><td>CAN-FD</td><td class="asil-c">C</td></tr>
+            <tr><td>Vehicle Stability</td><td>Chassis</td><td>FlexRay/CAN</td><td class="asil-d">D</td></tr>
+            <tr><td>Compute Topology</td><td>E/E</td><td>Ethernet</td><td class="asil-d">D</td></tr>
+            <tr><td>Trust &amp; Access</td><td>Security</td><td>Gateway</td><td class="asil-d">D</td></tr>
+            <tr><td>Fleet Intelligence</td><td>Vehicle Data</td><td>Cloud API</td><td class="asil-a">A / QM</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>*ISO 26262 defines ASIL <strong>QM, A, B, C, D</strong> (there is no ASIL-E in the standard).</p>
+    </section>
+
+    <section class="section">
+      <h2>EA Repository Trace Links</h2>
+      <ul>
+        <li>Business capability → DOORS requirement ID (REQ-*) → Feature ID (FEAT-*)</li>
+        <li>Feature → Software component / Adaptive app</li>
+        <li>Component → Zone / HPC deployment node</li>
+        <li>Safety goal (SG-*) → ASIL → technical safety requirement</li>
+      </ul>
+    </section>
+
+    <div class="pager">
+      <a class="btn btn-ghost" href="17-behaviour-diagrams.html">← Behaviour</a>
+      <a class="btn btn-primary" href="19-doors-requirements.html">IBM DOORS Requirements →</a>
+    </div>
+  </main>
+  <footer class="footer">
+    Author: Muhammad Samiullah (Founder &amp; CTO) · Embedded AI Design Labs Pvt Ltd<br/>
+    <span class="copy-line">Copyright &copy; 2026 Embedded AI Design Labs Pvt Ltd. All rights reserved.</span>
+  </footer>
+</body>
+</html>

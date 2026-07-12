@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Muhammad Samiullah, Embedded AI Design Labs Pvt Ltd" />
+  <title>System Architecture Diagram – SDV</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">SDV <span>Architectures</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="14-system-architecture.html">Sys Arch</a></li>
+        <li><a href="15-sequence-flows.html">Sequence</a></li>
+        <li><a href="16-data-control-flow.html">Data/Ctrl</a></li>
+        <li><a href="18-enterprise-architecture.html">EA</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1 class="page-title">System Architecture Diagram</h1>
+    <p class="page-sub">End-to-end view of cloud, connectivity, software platform, domain functions, E/E compute, and security trust root.</p>
+    <div class="badge-row">
+      <span class="tag">System Architecture</span>
+      <span class="tag blue">SDV</span>
+      <span class="tag ok">11 Domains</span>
+    </div>
+
+    <section class="section">
+      <h2>Logical System Context</h2>
+      <div class="diagram-svg">
+        <svg viewBox="0 0 1000 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SDV system architecture">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#0e1a30"/><stop offset="100%" stop-color="#162033"/>
+            </linearGradient>
+          </defs>
+          <rect width="1000" height="620" fill="url(#g1)"/>
+          <!-- Cloud -->
+          <rect x="60" y="30" width="880" height="70" rx="10" fill="#1a2740" stroke="#00c2a8" stroke-width="2"/>
+          <text x="500" y="72" text-anchor="middle" fill="#e8eef8" font-size="18" font-weight="700">OEM Cloud / Digital Twin / Analytics / OTA Catalog</text>
+          <!-- Connectivity -->
+          <rect x="60" y="120" width="420" height="60" rx="8" fill="#1a2740" stroke="#3d8bfd" stroke-width="2"/>
+          <text x="270" y="155" text-anchor="middle" fill="#93a0b8" font-size="14">Connectivity: 5G / V2X / Telematics / MQTT-TLS</text>
+          <rect x="520" y="120" width="420" height="60" rx="8" fill="#1a2740" stroke="#3d8bfd" stroke-width="2"/>
+          <text x="730" y="155" text-anchor="middle" fill="#93a0b8" font-size="14">Vehicle Data Pipeline: Edge → Cloud → Twin</text>
+          <!-- Software -->
+          <rect x="60" y="200" width="880" height="55" rx="8" fill="#1a2740" stroke="#f0a500" stroke-width="2"/>
+          <text x="500" y="233" text-anchor="middle" fill="#e8eef8" font-size="14">Software Platform: AUTOSAR Classic/Adaptive · SOME/IP · DDS · Hypervisor · QNX · AAOS</text>
+          <!-- Domains row 1 -->
+          <rect x="60" y="280" width="160" height="90" rx="8" fill="#162033" stroke="#243049"/>
+          <text x="140" y="320" text-anchor="middle" fill="#00c2a8" font-size="13" font-weight="700">Infotainment</text>
+          <text x="140" y="340" text-anchor="middle" fill="#93a0b8" font-size="11">IVI / Cockpit</text>
+          <rect x="240" y="280" width="160" height="90" rx="8" fill="#162033" stroke="#243049"/>
+          <text x="320" y="320" text-anchor="middle" fill="#00c2a8" font-size="13" font-weight="700">ADAS</text>
+          <text x="320" y="340" text-anchor="middle" fill="#93a0b8" font-size="11">Perception/Fusion</text>
+          <rect x="420" y="280" width="160" height="90" rx="8" fill="#162033" stroke="#243049"/>
+          <text x="500" y="320" text-anchor="middle" fill="#00c2a8" font-size="13" font-weight="700">Body</text>
+          <text x="500" y="340" text-anchor="middle" fill="#93a0b8" font-size="11">HVAC / BCM</text>
+          <rect x="600" y="280" width="160" height="90" rx="8" fill="#162033" stroke="#243049"/>
+          <text x="680" y="320" text-anchor="middle" fill="#00c2a8" font-size="13" font-weight="700">Powertrain</text>
+          <text x="680" y="340" text-anchor="middle" fill="#93a0b8" font-size="11">BMS / Inverter</text>
+          <rect x="780" y="280" width="160" height="90" rx="8" fill="#162033" stroke="#243049"/>
+          <text x="860" y="320" text-anchor="middle" fill="#00c2a8" font-size="13" font-weight="700">Chassis</text>
+          <text x="860" y="340" text-anchor="middle" fill="#93a0b8" font-size="11">ABS / ESC / SRS</text>
+          <!-- E/E + Security + Functional -->
+          <rect x="60" y="400" width="280" height="80" rx="8" fill="#1a2740" stroke="#fb923c" stroke-width="2"/>
+          <text x="200" y="435" text-anchor="middle" fill="#e8eef8" font-size="13" font-weight="700">E/E: Zones + HPC</text>
+          <text x="200" y="455" text-anchor="middle" fill="#93a0b8" font-size="11">Eth backbone / CAN-FD</text>
+          <rect x="360" y="400" width="280" height="80" rx="8" fill="#1a2740" stroke="#ff5c5c" stroke-width="2"/>
+          <text x="500" y="435" text-anchor="middle" fill="#e8eef8" font-size="13" font-weight="700">Security Trust Root</text>
+          <text x="500" y="455" text-anchor="middle" fill="#93a0b8" font-size="11">Secure Boot / HSM / Gateway</text>
+          <rect x="660" y="400" width="280" height="80" rx="8" fill="#1a2740" stroke="#3dd68c" stroke-width="2"/>
+          <text x="800" y="435" text-anchor="middle" fill="#e8eef8" font-size="13" font-weight="700">Functional / Safety</text>
+          <text x="800" y="455" text-anchor="middle" fill="#93a0b8" font-size="11">ASIL · DTCs · Diagnostics</text>
+          <!-- Sensors/Actuators -->
+          <rect x="60" y="510" width="880" height="70" rx="10" fill="#121a2b" stroke="#243049"/>
+          <text x="500" y="550" text-anchor="middle" fill="#93a0b8" font-size="14">Sensors &amp; Actuators · Camera/Radar/LiDAR · Motors · Brakes · Lights · HVAC</text>
+          <!-- arrows -->
+          <line x1="500" y1="100" x2="500" y2="120" stroke="#00c2a8" stroke-width="2"/>
+          <line x1="500" y1="180" x2="500" y2="200" stroke="#00c2a8" stroke-width="2"/>
+          <line x1="500" y1="255" x2="500" y2="280" stroke="#00c2a8" stroke-width="2"/>
+          <line x1="500" y1="370" x2="500" y2="400" stroke="#00c2a8" stroke-width="2"/>
+          <line x1="500" y1="480" x2="500" y2="510" stroke="#00c2a8" stroke-width="2"/>
+        </svg>
+      </div>
+      <p>Prepared in EA-document style for presentation and requirements traceability (see DOORS page).</p>
+    </section>
+
+    <section class="section">
+      <h2>Deployment View (Zonal + HPC)</h2>
+      <div class="arch-diagram">                    ┌──────────────── Vehicle HPC ────────────────┐
+                    │  Adaptive AUTOSAR  │  AI Inference  │ Twin │
+                    └─────────┬──────────┴────────┬───────┴──────┘
+                              │ 1000BASE-T1       │
+           ┌──────────────────┼───────────────────┼──────────────────┐
+           ▼                  ▼                   ▼                  ▼
+      ┌─────────┐       ┌─────────┐         ┌─────────┐        ┌─────────┐
+      │ Zone FL │       │ Zone FR │         │ Zone RL │        │ Zone RR │
+      │ CAN/LIN │       │ CAN/LIN │         │ CAN/LIN │        │ CAN/LIN │
+      └─────────┘       └─────────┘         └─────────┘        └─────────┘
+           │                  │                   │                  │
+        Actuators         Sensors              Body I/O          Power I/O</div>
+    </section>
+
+    <div class="pager">
+      <a class="btn btn-ghost" href="index.html">← Home</a>
+      <a class="btn btn-primary" href="15-sequence-flows.html">Sequence Flows →</a>
+    </div>
+  </main>
+  <footer class="footer">
+    Author: Muhammad Samiullah (Founder &amp; CTO) · Embedded AI Design Labs Pvt Ltd<br/>
+    <span class="copy-line">Copyright &copy; 2026 Embedded AI Design Labs Pvt Ltd. All rights reserved.</span>
+  </footer>
+</body>
+</html>

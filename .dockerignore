@@ -1,0 +1,9 @@
+# Ignore build artifacts when sending context to Docker
+build/
+.git/
+**/*.obj
+**/*.o
+**/*.exe
+**/demo_out.txt
+.vs/
+.vscode/

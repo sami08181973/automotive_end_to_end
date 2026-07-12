@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Infotainment Architecture – SDV</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">SDV <span>Architectures</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="02-infotainment.html">Infotainment</a></li>
+        <li><a href="03-connectivity.html">Connectivity</a></li>
+        <li><a href="04-adas.html">ADAS</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1 class="page-title">Infotainment Architecture</h1>
+    <p class="page-sub">IVI, digital cockpit, navigation, voice assistants, and the in-vehicle app ecosystem.</p>
+    <span class="tag">IVI</span><span class="tag blue">Digital Cockpit</span><span class="tag">Voice</span><span class="tag ok">HMI</span>
+
+    <section class="section">
+      <h2>Scope</h2>
+      <ul>
+        <li>Driver cluster, center IVI, HUD, passenger and rear-seat displays</li>
+        <li>Navigation &amp; routing with HUD projection</li>
+        <li>Voice assistant command pipeline</li>
+        <li>Media sources and third-party app lifecycle</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Architecture View</h2>
+      <div class="arch-diagram">[ Displays ]  Cluster │ IVI │ HUD │ Passenger │ RSE
+      │
+[ HMI Framework ] ←→ [ Voice Assistant ]
+      │
+[ App Runtime / Media Stack ]
+      │
+[ Vehicle Signals via SOME/IP ]</div>
+    </section>
+
+    <section class="section">
+      <h2>C++ Module</h2>
+      <div class="code-ref">modules/infotainment/infotainment.hpp|.cpp<br/>Class: sdv::infotainment::InfotainmentModule</div>
+      <p>Demo APIs: <code>startNavigation</code>, <code>voiceCommand</code>, <code>launchApp</code>, <code>setMediaSource</code>, multi-zone brightness.</p>
+    </section>
+
+    <div class="callout">Infotainment is often QM/ASIL-B for display integrity, but must not interfere with ASIL-D safety paths (freedom from interference).</div>
+
+    <div class="pager">
+      <a class="btn btn-ghost" href="01-overview.html">← Overview</a>
+      <a class="btn btn-primary" href="03-connectivity.html">Connectivity →</a>
+    </div>
+  </main>
+    <footer class="footer">
+    Author: Muhammad Samiullah (Founder &amp; CTO) � Embedded AI Design Labs Pvt Ltd � muhammadsami@embedailabs.com<br/>
+    <span class="copy-line">Copyright &copy; 2026 Embedded AI Design Labs Pvt Ltd. All rights reserved.</span>
+  </footer>
+</body>
+</html>

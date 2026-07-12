@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>E/E Architecture – SDV</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">SDV <span>Architectures</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="08-ee-architecture.html">E/E</a></li>
+        <li><a href="09-security.html">Security</a></li>
+        <li><a href="13-conclusion.html">Conclusion</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1 class="page-title">E/E Architecture</h1>
+    <p class="page-sub">Evolution from Distributed ECUs → Domain Controllers → Zonal → Centralized HPC computing.</p>
+    <span class="tag">Distributed</span><span class="tag blue">Domain</span><span class="tag warn">Zonal</span><span class="tag ok">Centralized</span>
+
+    <section class="section">
+      <h2>Paradigm Comparison</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Paradigm</th><th>Compute</th><th>Network</th><th>Wiring</th></tr></thead>
+          <tbody>
+            <tr><td>Distributed</td><td>Many function ECUs</td><td>CAN/LIN</td><td>Very high</td></tr>
+            <tr><td>Domain</td><td>Domain controllers</td><td>CAN-FD + Eth</td><td>High</td></tr>
+            <tr><td>Zonal</td><td>Zone + central</td><td>1G Eth backbone</td><td>Reduced</td></tr>
+            <tr><td>Centralized</td><td>Vehicle HPC</td><td>Eth + PCIe</td><td>Minimal</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="arch-diagram">Distributed:  ECU──ECU──ECU──ECU  (CAN)
+Domain:       [PT][Chassis][Body][Cabin][ADAS]
+Zonal:        ZoneFL ZoneFR ZoneRL ZoneRR → HPC
+Centralized:  Thin Zones → Vehicle HPC (AI TOPS)</div>
+    </section>
+
+    <section class="section">
+      <h2>C++ Module</h2>
+      <div class="code-ref">modules/ee_architecture/ee_architecture.hpp|.cpp<br/>Class: sdv::ee::EEArchitectureModule</div>
+      <p>Demo APIs: <code>setParadigm</code>, <code>migrateToZonal</code>, <code>migrateToCentralized</code>.</p>
+    </section>
+
+    <div class="callout accent">Zonal + centralized compute is the structural enabler for continuous software delivery and high-performance AI in the vehicle.</div>
+
+    <div class="pager">
+      <a class="btn btn-ghost" href="07-chassis-safety.html">← Chassis</a>
+      <a class="btn btn-primary" href="09-security.html">Security →</a>
+    </div>
+  </main>
+    <footer class="footer">
+    Author: Muhammad Samiullah (Founder &amp; CTO) � Embedded AI Design Labs Pvt Ltd � muhammadsami@embedailabs.com<br/>
+    <span class="copy-line">Copyright &copy; 2026 Embedded AI Design Labs Pvt Ltd. All rights reserved.</span>
+  </footer>
+</body>
+</html>

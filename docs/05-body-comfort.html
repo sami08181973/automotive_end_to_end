@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Body & Comfort – SDV</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">SDV <span>Architectures</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="05-body-comfort.html">Body</a></li>
+        <li><a href="06-powertrain.html">Powertrain</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1 class="page-title">Body &amp; Comfort Architecture</h1>
+    <p class="page-sub">HVAC, lighting, seat control, keyless entry, and the Body Control Module (BCM).</p>
+    <span class="tag">HVAC</span><span class="tag blue">BCM</span><span class="tag">Keyless</span><span class="tag ok">Lighting</span>
+
+    <section class="section">
+      <h2>Functions</h2>
+      <ul>
+        <li>Cabin climate with thermal model and fan/AC control</li>
+        <li>Exterior lighting modes (Auto, Low/High beam, DRL)</li>
+        <li>Power seats with heat/vent levels</li>
+        <li>Passive entry / welcome sequence on fob approach</li>
+      </ul>
+      <div class="arch-diagram">Key Fob → BCM → Doors / Lights / Welcome
+                ↓
+              HVAC ← Seat Heat/Vent
+                ↓
+         Ambient + Exterior Lighting</div>
+    </section>
+
+    <section class="section">
+      <h2>C++ Module</h2>
+      <div class="code-ref">modules/body_comfort/body_comfort.hpp|.cpp<br/>Class: sdv::body::BodyComfortModule</div>
+    </section>
+
+    <div class="pager">
+      <a class="btn btn-ghost" href="04-adas.html">← ADAS</a>
+      <a class="btn btn-primary" href="06-powertrain.html">Powertrain →</a>
+    </div>
+  </main>
+    <footer class="footer">
+    Author: Muhammad Samiullah (Founder &amp; CTO) � Embedded AI Design Labs Pvt Ltd � muhammadsami@embedailabs.com<br/>
+    <span class="copy-line">Copyright &copy; 2026 Embedded AI Design Labs Pvt Ltd. All rights reserved.</span>
+  </footer>
+</body>
+</html>

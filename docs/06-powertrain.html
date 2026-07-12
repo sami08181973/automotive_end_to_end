@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Powertrain Architecture – SDV</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">SDV <span>Architectures</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="06-powertrain.html">Powertrain</a></li>
+        <li><a href="07-chassis-safety.html">Chassis</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1 class="page-title">Powertrain Architecture</h1>
+    <p class="page-sub">Electric motor control, BMS, traction inverter, and thermal management for BEV/HEV platforms.</p>
+    <span class="tag">BMS</span><span class="tag blue">Inverter</span><span class="tag warn">Thermal</span><span class="tag">e-Motor</span>
+
+    <section class="section">
+      <h2>Core Domains</h2>
+      <ul>
+        <li><strong>BMS</strong> – SoC/SoH, charge/discharge limits, cell protection</li>
+        <li><strong>Inverter</strong> – DC/AC conversion, efficiency, thermal derating</li>
+        <li><strong>Motor control</strong> – Torque requests by drive mode (Eco/Sport)</li>
+        <li><strong>Thermal loops</strong> – Coolant pump, radiator fan coordination</li>
+      </ul>
+      <div class="arch-diagram">Torque Request → Motor Ctrl → Inverter → HV Battery (BMS)
+                      ↓              ↓
+                 Thermal Mgmt ←←←←←←←┘</div>
+    </section>
+
+    <section class="section">
+      <h2>C++ Module</h2>
+      <div class="code-ref">modules/powertrain/powertrain.hpp|.cpp<br/>Class: sdv::powertrain::PowertrainModule</div>
+    </section>
+
+    <div class="pager">
+      <a class="btn btn-ghost" href="05-body-comfort.html">← Body</a>
+      <a class="btn btn-primary" href="07-chassis-safety.html">Chassis &amp; Safety →</a>
+    </div>
+  </main>
+    <footer class="footer">
+    Author: Muhammad Samiullah (Founder &amp; CTO) � Embedded AI Design Labs Pvt Ltd � muhammadsami@embedailabs.com<br/>
+    <span class="copy-line">Copyright &copy; 2026 Embedded AI Design Labs Pvt Ltd. All rights reserved.</span>
+  </footer>
+</body>
+</html>

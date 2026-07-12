@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Functional Architecture – SDV</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">SDV <span>Architectures</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="10-functional.html">Functional</a></li>
+        <li><a href="11-software.html">Software</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1 class="page-title">Functional Architecture</h1>
+    <p class="page-sub">Feature decomposition, requirements traceability, ISO 26262 safety goals, and diagnostics.</p>
+    <span class="tag">Features</span><span class="tag blue">Requirements</span><span class="tag warn">ASIL</span><span class="tag">DTC</span>
+
+    <section class="section">
+      <h2>Systems Engineering View</h2>
+      <ul>
+        <li>Requirements with ASIL allocation and lifecycle status</li>
+        <li>Features mapped to requirement IDs</li>
+        <li>Safety goals monitored at runtime</li>
+        <li>DTC raise/clear and on-board diagnostic results</li>
+      </ul>
+      <div class="arch-diagram">Stakeholder Needs
+       ↓
+  Requirements (ASIL) ←→ Safety Goals
+       ↓
+    Features (ACC, AEB, OTA, …)
+       ↓
+  Diagnostics / DTCs / Degraded Modes</div>
+    </section>
+
+    <section class="section">
+      <h2>C++ Module</h2>
+      <div class="code-ref">modules/functional/functional.hpp|.cpp<br/>Class: sdv::functional::FunctionalModule</div>
+    </section>
+
+    <div class="pager">
+      <a class="btn btn-ghost" href="09-security.html">← Security</a>
+      <a class="btn btn-primary" href="11-software.html">Software →</a>
+    </div>
+  </main>
+    <footer class="footer">
+    Author: Muhammad Samiullah (Founder &amp; CTO) � Embedded AI Design Labs Pvt Ltd � muhammadsami@embedailabs.com<br/>
+    <span class="copy-line">Copyright &copy; 2026 Embedded AI Design Labs Pvt Ltd. All rights reserved.</span>
+  </footer>
+</body>
+</html>

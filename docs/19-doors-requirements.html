@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Muhammad Samiullah, Embedded AI Design Labs Pvt Ltd" />
+  <title>IBM DOORS Requirements – SDV</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">SDV <span>Architectures</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="19-doors-requirements.html">DOORS</a></li>
+        <li><a href="20-safety-aspice.html">ASIL/ASPICE</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1 class="page-title">Requirements – IBM DOORS Format</h1>
+    <p class="page-sub">Functional and non-functional requirements captured in DOORS-style attributes (ID, Object Text, ASIL, Type, Verification, ASPICE link).</p>
+
+    <section class="section">
+      <h2>DOORS Module Metadata</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Attribute</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Project</td><td>SDV End-to-End Architectures</td></tr>
+            <tr><td>Module</td><td>SYS_REQ_SDV_E2E</td></tr>
+            <tr><td>Author</td><td>Muhammad Samiullah (Founder &amp; CTO)</td></tr>
+            <tr><td>Organization</td><td>Embedded AI Design Labs Pvt Ltd</td></tr>
+            <tr><td>Baseline</td><td>BL-2026.07.12</td></tr>
+            <tr><td>Standards</td><td>ISO 26262, ISO/SAE 21434, Automotive SPICE</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Functional Requirements (sample extract)</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Object ID</th><th>Object Text</th><th>Type</th><th>ASIL</th><th>Verification</th><th>ASPICE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="doors-id">REQ-IVI-001</td>
+              <td>The system shall provide a multi-display digital cockpit (cluster, IVI, HUD).</td>
+              <td>Functional</td><td class="asil-b">ASIL-B</td><td>HIL / Demo</td><td>SWE.1</td>
+            </tr>
+            <tr>
+              <td class="doors-id">REQ-IVI-002</td>
+              <td>The system shall accept voice commands for navigation and climate.</td>
+              <td>Functional</td><td class="asil-qm">ASIL-QM</td><td>Test</td><td>SWE.4</td>
+            </tr>
+            <tr>
+              <td class="doors-id">REQ-CONN-001</td>
+              <td>The system shall support OTA package download over 4G/5G with TLS.</td>
+              <td>Functional</td><td class="asil-b">ASIL-B</td><td>Integration</td><td>SWE.5</td>
+            </tr>
+            <tr>
+              <td class="doors-id">REQ-CONN-002</td>
+              <td>The system shall exchange V2X CAM/DENM messages with roadside units.</td>
+              <td>Functional</td><td class="asil-b">ASIL-B</td><td>Bench</td><td>SWE.4</td>
+            </tr>
+            <tr>
+              <td class="doors-id">REQ-ADAS-001</td>
+              <td>The system shall detect pedestrians within 40 m using fused sensors.</td>
+              <td>Functional</td><td class="asil-d">ASIL-D</td><td>SIL/HIL</td><td>SWE.4</td>
+            </tr>
+            <tr>
+              <td class="doors-id">REQ-ADAS-002</td>
+              <td>AEB shall request braking when time-to-collision &lt; 1.5 s.</td>
+              <td>Functional</td><td class="asil-d">ASIL-D</td><td>HIL</td><td>SWE.5</td>
+            </tr>
+            <tr>
+              <td class="doors-id">REQ-BODY-001</td>
+              <td>BCM shall unlock doors on valid passive-entry fob approach.</td>
+              <td>Functional</td><td class="asil-a">ASIL-A</td><td>Test</td><td>SWE.4</td>
+            </tr>
+            <tr>
+              <td class="doors-id">REQ-PT-001</td>
+              <td>BMS shall protect HV battery from over-voltage and thermal limit.</td>
+              <td>Functional</td><td class="asil-c">ASIL-C</td><td>HIL</td><td>SWE.5</td>
+            </tr>
+            <tr>
+              <td class="doors-id">REQ-CH-001</td>
+              <td>ABS shall prevent sustained wheel lock under maximum braking.</td>
+              <td>Functional</td><td class="asil-d">ASIL-D</td><td>Vehicle</td><td>SWE.5</td>
+            </tr>
+            <tr>
+              <td class="doors-id">REQ-EE-001</td>
+              <td>Zonal backbone shall use Automotive Ethernet (≥1000BASE-T1).</td>
+              <td>Functional</td><td class="asil-b">ASIL-B</td><td>Design Review</td><td>SYS.3</td>
+            </tr>
+            <tr>
+              <td class="doors-id">REQ-SEC-001</td>
+              <td>Secure boot shall verify signature/hash of every boot stage.</td>
+              <td>Functional</td><td class="asil-d">ASIL-D</td><td>Penetration / Bench</td><td>SWE.4</td>
+            </tr>
+            <tr>
+              <td class="doors-id">REQ-SW-001</td>
+              <td>Platform shall host Adaptive AUTOSAR applications with SOME/IP services.</td>
+              <td>Functional</td><td class="asil-b">ASIL-B</td><td>Integration</td><td>SWE.1</td>
+            </tr>
+            <tr>
+              <td class="doors-id">REQ-DAT-001</td>
+              <td>Personal data shall be anonymized before cloud uplink.</td>
+              <td>Functional</td><td class="asil-a">ASIL-A</td><td>Audit</td><td>SUP.8</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Non-Functional Requirements (NFR)</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Object ID</th><th>Object Text</th><th>Category</th><th>ASIL</th><th>Target</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="doors-id">NFR-PERF-001</td>
+              <td>ADAS fusion cycle time shall be ≤ 50 ms at Highway Pilot.</td>
+              <td>Performance</td><td class="asil-d">D</td><td>≤ 50 ms</td>
+            </tr>
+            <tr>
+              <td class="doors-id">NFR-SAFE-001</td>
+              <td>Freedom-from-interference shall isolate QM IVI from ASIL-D ADAS partitions.</td>
+              <td>Safety</td><td class="asil-d">D</td><td>Hypervisor FFI</td>
+            </tr>
+            <tr>
+              <td class="doors-id">NFR-SEC-001</td>
+              <td>All external links shall use TLS 1.2+; OTA packages must be signed.</td>
+              <td>Security</td><td class="asil-b">B</td><td>ISO 21434</td>
+            </tr>
+            <tr>
+              <td class="doors-id">NFR-REL-001</td>
+              <td>Health monitor shall detect deadline miss within 1 supervision cycle.</td>
+              <td>Reliability</td><td class="asil-c">C</td><td>Alive supervision</td>
+            </tr>
+            <tr>
+              <td class="doors-id">NFR-INT-001</td>
+              <td>CAN and SOME/IP payloads carrying safety signals shall carry CRC-16.</td>
+              <td>Integrity</td><td class="asil-c">C</td><td>CRC-16/CCITT</td>
+            </tr>
+            <tr>
+              <td class="doors-id">NFR-AVAIL-001</td>
+              <td>OTA shall not brick vehicle: rollback path required on install failure.</td>
+              <td>Availability</td><td class="asil-b">B</td><td>A/B slots</td>
+            </tr>
+            <tr>
+              <td class="doors-id">NFR-MAIN-001</td>
+              <td>Software release train shall support continuous delivery (CI/CD).</td>
+              <td>Maintainability</td><td class="asil-qm">QM</td><td>ASPICE SUP.8</td>
+            </tr>
+            <tr>
+              <td class="doors-id">NFR-SCAL-001</td>
+              <td>E/E design shall allow migration Distributed → Zonal → Centralized HPC.</td>
+              <td>Scalability</td><td class="asil-b">B</td><td>EA roadmap</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Safety Goals (linked to Functional Architecture)</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ID</th><th>Safety Goal</th><th>ASIL</th><th>Derived From</th></tr></thead>
+          <tbody>
+            <tr><td class="doors-id">SG-01</td><td>Avoid unintended acceleration</td><td class="asil-d">D</td><td>REQ-PT-001 / ADAS</td></tr>
+            <tr><td class="doors-id">SG-02</td><td>Ensure braking capability always available</td><td class="asil-d">D</td><td>REQ-CH-001</td></tr>
+            <tr><td class="doors-id">SG-03</td><td>Prevent unauthorized software execution</td><td class="asil-d">D</td><td>REQ-SEC-001</td></tr>
+            <tr><td class="doors-id">SG-04</td><td>Maintain HV battery within safe envelope</td><td class="asil-c">C</td><td>REQ-PT-001</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="callout">
+      DOORS attribute mapping used here: Object Identifier, Object Text, Requirement Type,
+      ASIL, Verification Method, ASPICE Process Reference, Status (Approved/Implemented/Verified).
+      These IDs are mirrored in <code>modules/functional/functional.cpp</code>.
+    </div>
+
+    <div class="pager">
+      <a class="btn btn-ghost" href="18-enterprise-architecture.html">← EA</a>
+      <a class="btn btn-primary" href="20-safety-aspice.html">ASIL &amp; ASPICE →</a>
+    </div>
+  </main>
+  <footer class="footer">
+    Author: Muhammad Samiullah (Founder &amp; CTO) · Embedded AI Design Labs Pvt Ltd · muhammadsami@embedailabs.com<br/>
+    <span class="copy-line">Copyright &copy; 2026 Embedded AI Design Labs Pvt Ltd. All rights reserved.</span>
+  </footer>
+</body>
+</html>

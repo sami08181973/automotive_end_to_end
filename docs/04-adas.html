@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ADAS & Autonomous – SDV</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">SDV <span>Architectures</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="04-adas.html">ADAS</a></li>
+        <li><a href="05-body-comfort.html">Body</a></li>
+        <li><a href="07-chassis-safety.html">Chassis</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1 class="page-title">ADAS &amp; Autonomous Architecture</h1>
+    <p class="page-sub">Perception, sensor fusion, decision-making, and automated driving functions (L0–L4).</p>
+    <span class="tag warn">ASIL-D</span><span class="tag">Perception</span><span class="tag blue">Fusion</span><span class="tag">Planning</span>
+
+    <section class="section">
+      <h2>Pipeline</h2>
+      <ol>
+        <li><strong>Sense</strong> – Camera, Radar, LiDAR, Ultrasonic, IMU, GNSS</li>
+        <li><strong>Perceive</strong> – Detect objects, lanes, free space</li>
+        <li><strong>Fuse</strong> – Multi-sensor object list + confidence</li>
+        <li><strong>Decide</strong> – ACC/LKA/Highway Pilot/AEB actions</li>
+        <li><strong>Act</strong> – Torque/brake/steer requests to chassis &amp; powertrain</li>
+      </ol>
+      <div class="arch-diagram">Sensors → Perception → Fusion → Decision → Actuation
+                ↓
+         Safety Monitor (ASIL-D)</div>
+    </section>
+
+    <section class="section">
+      <h2>C++ Module</h2>
+      <div class="code-ref">modules/adas/adas.hpp|.cpp<br/>Class: sdv::adas::ADASModule</div>
+      <p>Demo APIs: <code>setAutonomyLevel</code>, <code>setDrivingMode</code>, <code>injectObject</code>, perception/fusion/decision tick loop.</p>
+    </section>
+
+    <div class="callout">ADAS decisions in the demo trigger brake/speed targets that chassis and powertrain modules would consume in a real vehicle.</div>
+
+    <div class="pager">
+      <a class="btn btn-ghost" href="03-connectivity.html">← Connectivity</a>
+      <a class="btn btn-primary" href="05-body-comfort.html">Body &amp; Comfort →</a>
+    </div>
+  </main>
+    <footer class="footer">
+    Author: Muhammad Samiullah (Founder &amp; CTO) � Embedded AI Design Labs Pvt Ltd � muhammadsami@embedailabs.com<br/>
+    <span class="copy-line">Copyright &copy; 2026 Embedded AI Design Labs Pvt Ltd. All rights reserved.</span>
+  </footer>
+</body>
+</html>

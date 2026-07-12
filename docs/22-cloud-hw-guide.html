@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Muhammad Samiullah, Embedded AI Design Labs Pvt Ltd" />
+  <title>Cloud & Hardware Guide – Virtual ECU | Embedded AI Design Labs</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="index.html">SDV <span>Architectures</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="21-platform-tech.html">Platform</a></li>
+        <li><a class="active" href="22-cloud-hw-guide.html">Cloud/HW Guide</a></li>
+        <li><a href="13-conclusion.html">Conclusion</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="wrap">
+    <h1 class="page-title">Step-by-Step: Virtual ECU + Cloud Hardware</h1>
+    <p class="page-sub">
+      Run HPC / GPU / DSP / ARM workloads <strong>without local silicon</strong> using software backends,
+      Docker, Kubernetes, Terraform, and free cloud tiers (Colab, GCP, AWS, Azure).
+    </p>
+    <div class="author-card">
+      <div class="role">Guide Author</div>
+      <div class="name">Muhammad Samiullah</div>
+      <div class="company">Founder &amp; CTO · Embedded AI Design Labs Pvt Ltd</div>
+      <div class="email"><a href="mailto:muhammadsami@embedailabs.com">muhammadsami@embedailabs.com</a></div>
+      <div class="copy">Copyright &copy; 2026 Embedded AI Design Labs Pvt Ltd. All rights reserved.</div>
+    </div>
+
+    <section class="section">
+      <h2>0. What you get</h2>
+      <ul>
+        <li><strong>Hardware-dependent code path</strong> – optional CUDA (<code>-DSDV_ENABLE_CUDA=ON</code>)</li>
+        <li><strong>Virtual ECU</strong> – cloud-storable image binding CPU / NVIDIA GPU / ARM / DSP / Cloud HPC</li>
+        <li><strong>Free / low-cost runtimes</strong> – Google Colab T4, GCP/AWS/Azure free tiers, Docker Desktop, K8s Jobs</li>
+        <li><strong>IaC</strong> – Terraform skeletons under <code>cloud/terraform/{aws,gcp,azure}</code></li>
+      </ul>
+      <div class="arch-diagram">Local PC (no GPU)
+   └─ CPU_Sim / ARM_Sim / DSP_Sim / GPU_Emulated
+Docker Desktop ──► same binaries in container
+Google Colab (free T4) ──► build+run notebook
+GCP / AWS / Azure ──► Artifact Registry + K8s Job / Cloud Run / Fargate
+Terraform ──► provision registry (push image once)</div>
+    </section>
+
+    <section class="section">
+      <h2>1. Local Windows – install tools &amp; run all demos</h2>
+      <ol>
+        <li>Install (if missing):
+          <div class="code-ref">
+winget install Kitware.CMake<br/>
+winget install MartinStorsjo.LLVM-MinGW.UCRT<br/>
+winget install Docker.DockerDesktop<br/>
+winget install Hashicorp.Terraform
+          </div>
+        </li>
+        <li>Open a new PowerShell, then:
+          <div class="code-ref">
+cd e:\Sami\automotive_end_to_end<br/>
+powershell -ExecutionPolicy Bypass -File .\scripts\install_and_run_all.ps1
+          </div>
+        </li>
+        <li>Or manual:
+          <div class="code-ref">
+mkdir build; cd build<br/>
+cmake .. -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=g++<br/>
+cmake --build . -j 8<br/>
+.\sdv_demo.exe<br/>
+.\sdv_usecases.exe
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2>2. Linux / WSL / Colab shell</h2>
+      <div class="code-ref">
+chmod +x scripts/install_and_run_all.sh<br/>
+./scripts/install_and_run_all.sh
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>3. Docker (no cloud account)</h2>
+      <ol>
+        <li>Start Docker Desktop.</li>
+        <li>Build Virtual ECU image:
+          <div class="code-ref">
+cd e:\Sami\automotive_end_to_end<br/>
+docker build -f cloud/docker/Dockerfile -t embedailabs/sdv-virtual-ecu:latest .
+          </div>
+        </li>
+        <li>Run demos:
+          <div class="code-ref">
+docker run --rm embedailabs/sdv-virtual-ecu:latest sdv_demo<br/>
+docker run --rm embedailabs/sdv-virtual-ecu:latest sdv_usecases
+          </div>
+        </li>
+        <li>Compose:
+          <div class="code-ref">
+docker compose -f cloud/docker/docker-compose.yml up --build<br/>
+docker compose -f cloud/docker/docker-compose.yml --profile usecases up
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2>4. Google Colab – free NVIDIA GPU</h2>
+      <ol>
+        <li>Open <a href="https://colab.research.google.com" target="_blank" rel="noopener">colab.research.google.com</a></li>
+        <li>Upload <code>cloud/colab/sdv_virtual_ecu.ipynb</code></li>
+        <li>Runtime → Change runtime type → <strong>T4 GPU</strong> (free)</li>
+        <li>Upload/clone project to <code>/content/sdv</code></li>
+        <li>Run all cells → builds + <code>sdv_demo</code> + <code>sdv_usecases</code></li>
+      </ol>
+      <div class="callout accent">Colab is the fastest free path to a real NVIDIA GPU for the Virtual ECU perception kernels.</div>
+    </section>
+
+    <section class="section">
+      <h2>5. Kubernetes</h2>
+      <div class="code-ref">
+kubectl apply -f cloud/kubernetes/sdv-jobs.yaml<br/>
+kubectl -n sdv-virtual-ecu logs job/sdv-demo-job -f<br/>
+kubectl -n sdv-virtual-ecu logs job/sdv-usecases-job -f
+      </div>
+      <p>Works on Docker Desktop Kubernetes, kind/minikube, GKE Autopilot, EKS Fargate, AKS.</p>
+    </section>
+
+    <section class="section">
+      <h2>6. Terraform – AWS / GCP / Azure registries</h2>
+      <h3>AWS</h3>
+      <div class="code-ref">
+cd cloud/terraform/aws<br/>
+terraform init<br/>
+terraform apply<br/>
+# follow output next_steps to push image to ECR
+      </div>
+      <h3>GCP</h3>
+      <div class="code-ref">
+cd cloud/terraform/gcp<br/>
+terraform init<br/>
+terraform apply -var="project_id=YOUR_GCP_PROJECT"<br/>
+# or skip TF and use Colab (section 4)
+      </div>
+      <h3>Azure</h3>
+      <div class="code-ref">
+cd cloud/terraform/azure<br/>
+terraform init<br/>
+terraform apply<br/>
+# push to ACR then az container create / AKS
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>7. Optional real CUDA SDK</h2>
+      <ol>
+        <li>Install <a href="https://developer.nvidia.com/cuda-downloads" target="_blank" rel="noopener">CUDA Toolkit</a></li>
+        <li>Rebuild:
+          <div class="code-ref">
+cmake -S . -B build -DSDV_ENABLE_CUDA=ON -DCMAKE_BUILD_TYPE=Release<br/>
+cmake --build build -j 8
+          </div>
+        </li>
+        <li>Without toolkit, GPU path stays <em>emulated</em> and still runs everywhere.</li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2>8. ARM / DSP without boards</h2>
+      <ul>
+        <li><strong>ARM:</strong> software backend today; for real ISA use QEMU user-mode, AWS Graviton, or Azure Ampere VMs with the same Docker image (multi-arch build).</li>
+        <li><strong>DSP:</strong> C7x/Hexagon-class MAC engine is simulated in <code>modules/virtual_ecu</code>; swap to vendor SDK later behind <code>IHwBackend</code>.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>9. Use-case matrix</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Use-case</th><th>Binary</th><th>Backends exercised</th></tr></thead>
+          <tbody>
+            <tr><td>Full SDV ecosystem</td><td><code>sdv_demo</code></td><td>All 11 domains + Virtual ECU</td></tr>
+            <tr><td>Perception / DSP / Control</td><td><code>sdv_usecases</code></td><td>CPU, GPU, ARM, DSP, Cloud HPC</td></tr>
+            <tr><td>Container smoke</td><td>Docker CMD</td><td>Same as above</td></tr>
+            <tr><td>Cluster batch</td><td>K8s Jobs</td><td>Same image</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="pager">
+      <a class="btn btn-ghost" href="21-platform-tech.html">← Platform</a>
+      <a class="btn btn-primary" href="index.html">Home</a>
+    </div>
+  </main>
+  <footer class="footer">
+    Author: Muhammad Samiullah (Founder &amp; CTO) · Embedded AI Design Labs Pvt Ltd · muhammadsami@embedailabs.com<br/>
+    <span class="copy-line">Copyright &copy; 2026 Embedded AI Design Labs Pvt Ltd. All rights reserved.</span>
+    <span class="watermark-tag">Watermark: SDV End-to-End Architectures – Embedded AI Design Labs Pvt Ltd</span>
+  </footer>
+</body>
+</html>
